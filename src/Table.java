@@ -7,14 +7,16 @@ public class Table {
     public String[] headerContent = null;
     public String[] rowContent = null;
     public List<Row> allRows= new ArrayList<>();
-    private int width;
+    private int width=2;
 
 
     public Table(int width) {
         this.width = width;
 
     }
+    public Table() {
 
+    }
 
     public void createHeaders(String... headerContent) {
         this.headerContent = headerContent;

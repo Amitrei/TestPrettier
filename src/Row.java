@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Row {
 
     private int width;
@@ -5,6 +8,9 @@ public class Row {
     private SimpleBox simpleBox = new SimpleBox();
     private String[] template;
     private String[] rowContent;
+    private int numOfRowsFlag = 1;
+    List<String> rowParts = new ArrayList<>();
+
 
     public Row(int width, String template[], String... rowContent) {
         this.width = width;
@@ -14,182 +20,144 @@ public class Row {
 
 
     public void rowRender() {
-
         System.out.println();
-        for (int i = 0; i < template.length; i++) {
-            if (i == 0) {
-                firstCenterText(template[i].length(), rowContent[i], width);
-                continue;
-            }
-
-            centerText(template[i].length(), rowContent[i], width);
-
-
-        }
-
+        printRowText();
         System.out.println();
-
-        for (int i = 0; i < template.length; i++) {
-            if (i == 0) {
-                firstLowerColumnBorder(width, template[i].length());
-                continue;
-            }
-
-
-            if (i == template.length - 1) {
-                lastLowerColumnBorder(width, template[i].length());
-                continue;
-            }
-
-
-            lowerColumnBorder(width, template[i].length());
-
-        }
+        printBotRowBorder();
     }
 
 
     public void lastRowRender() {
 
         System.out.println();
-        for (int i = 0; i < template.length; i++) {
-            if (i == 0) {
-                firstCenterText(template[i].length(), rowContent[i], width);
-                continue;
-            }
+        printRowText();
+        System.out.println();
+        printLastRowBotBorder();
+    }
 
-            centerText(template[i].length(), rowContent[i], width);
 
+
+
+
+    private void lastRowBottomBorder(int width, int templateLength, int location) {
+        char lastCharAtBorder =' ' ;
+        char firstCharAtBorder =' ';
+        switch (location){
+            case 1:
+               lastCharAtBorder =simpleBox.botLastT ;
+               firstCharAtBorder =simpleBox.leftBotCorner;
+               break;
+
+            case 3:
+                lastCharAtBorder =simpleBox.rightBotCorner ;
+                break;
+
+            default:
+                lastCharAtBorder =simpleBox.botLastT ;
 
         }
 
-        System.out.println();
+        int whiteSpaces = (templateLength + width);
+        String finalBorder = String.format("%-" + whiteSpaces + "s" + lastCharAtBorder, firstCharAtBorder).replace(' ', simpleBox.horizLine);
+        System.out.print(finalBorder);
 
+
+    }
+
+
+
+    private void bottomRowBorder(int width, int templateLength, int location) {
+
+        char lastCharAtBorder = ' ';
+        char firstCharAtBorder = ' ';
+        switch (location) {
+            case 1:
+                lastCharAtBorder = simpleBox.middleJoinStorke;
+                firstCharAtBorder = simpleBox.leftJoinStroke;
+                break;
+
+            case 3:
+                lastCharAtBorder = simpleBox.rightJoinStroke;
+                break;
+
+            default:
+                lastCharAtBorder = simpleBox.middleJoinStorke;
+                break;
+
+        }
+
+        int whiteSpaces = (templateLength + width);
+
+        String finalBorder = String.format("%-" + whiteSpaces + "s" + lastCharAtBorder, firstCharAtBorder).replace(' ', simpleBox.horizLine);
+        System.out.print(finalBorder);
+
+    }
+
+
+    private void centerText(int templateLength, String rowContent, int width, Boolean isFirst) {
+        String stringFormatSymbols = null;
+        int whiteSpaces = (templateLength + width);
+
+        if (isFirst == true) {
+            stringFormatSymbols = "|%-";
+            whiteSpaces--;
+        } else {
+            stringFormatSymbols = "%-";
+        }
+
+
+        String addedDetailsContent = String.format(stringFormatSymbols + whiteSpaces + "s|", rowContent);
+        System.out.print(addedDetailsContent);
+
+
+    }
+
+    private void printLastRowBotBorder() {
         for (int i = 0; i < template.length; i++) {
             if (i == 0) {
-                lastRowFirstLowerColumnBorder(width, template[i].length());
+                lastRowBottomBorder(width, template[i].length(),1);
                 continue;
             }
 
 
             if (i == template.length - 1) {
-                lastRowLastLowerColumnBorder(width, template[i].length());
+                lastRowBottomBorder(width, template[i].length(),3);
                 continue;
             }
 
 
-            lastRowLowerColumnBorder(width, template[i].length());
+            lastRowBottomBorder(width, template[i].length(),2);
 
         }
     }
 
-
-    private void lowerColumnBorder(int width, int templateLength) {
-
-
-        for (int i = 0; i < templateLength + width; i++) {
-            System.out.print(simpleBox.horizLine);
-        }
-        System.out.print(simpleBox.middleJoinStorke);
-
-
-    }
-
-
-    private void lastRowLowerColumnBorder(int width, int templateLength) {
-
-
-        for (int i = 0; i < templateLength + width; i++) {
-            System.out.print(simpleBox.horizLine);
-        }
-        System.out.print(simpleBox.botLastT);
-
-
-    }
-
-    private void lastRowFirstLowerColumnBorder(int width, int templateLength) {
-        for (int i = 0; i < templateLength + width; i++) {
-
+    private void printRowText() {
+        for (int i = 0; i < template.length; i++) {
             if (i == 0) {
-                System.out.print(simpleBox.leftBotCorner);
+                centerText(template[i].length(), rowContent[i], width, true);
                 continue;
             }
-
-            System.out.print(simpleBox.horizLine);
-
+            centerText(template[i].length(), rowContent[i], width, false);
         }
-        System.out.print(simpleBox.botLastT);
-
-
     }
 
-    private void lastRowLastLowerColumnBorder(int width, int templateLength) {
-
-        for (int i = 0; i < templateLength + width; i++) {
-            System.out.print(simpleBox.horizLine);
-        }
-        System.out.print(simpleBox.rightBotCorner);
-    }
-
-
-    private void firstLowerColumnBorder(int width, int templateLength) {
-        for (int i = 0; i < templateLength + width; i++) {
-
+    private void printBotRowBorder() {
+        for (int i = 0; i < template.length; i++) {
             if (i == 0) {
-                System.out.print(simpleBox.leftJoinStroke);
+                bottomRowBorder(width, template[i].length(), 1);
                 continue;
             }
 
-            System.out.print(simpleBox.horizLine);
 
-        }
-        System.out.print(simpleBox.middleJoinStorke);
+            if (i == template.length - 1) {
+                bottomRowBorder(width, template[i].length(), 3);
+                continue;
+            }
 
-
-    }
-
-    private void lastLowerColumnBorder(int width, int templateLength) {
-
-        for (int i = 0; i < templateLength + width; i++) {
-            System.out.print(simpleBox.horizLine);
-        }
-        System.out.print(simpleBox.rightJoinStroke);
-    }
-
-
-    private void firstCenterText(int templateLength, String rowContent, int width) {
-
-
-        System.out.print(simpleBox.vertLine);
-        System.out.print(rowContent);
-        for (int i = 0; i < (templateLength + width) - rowContent.length() - 1; i++) {
-
-
-            System.out.print(simpleBox.whiteSpace);
+            bottomRowBorder(width, template[i].length(), 2);
 
 
         }
-
-        System.out.print(simpleBox.vertLine);
-
-
-    }
-
-
-    private void centerText(int templateLength, String headerContent, int width) {
-
-
-        System.out.print(headerContent);
-        for (int i = 0; i < (templateLength + width) - headerContent.length(); i++) {
-
-
-            System.out.print(simpleBox.whiteSpace);
-
-
-        }
-
-        System.out.print(simpleBox.vertLine);
-
-
     }
 
 }

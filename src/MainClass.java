@@ -1,19 +1,23 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainClass {
 
     public static void main(String[] args) {
 
+
+        Table createTable = new Table(5);
+        createTable.createHeaders("1234","1234","2134");
+        createTable.createRow("1234","12345","1243");
+        createTable.createRow("1","12345","1343");
+        createTable.render();
+
+//        String test="123456789";
+//        int templateLength=3;
 //
-//        Table createTable= new Table(40);
-//        createTable.createHeaders("1234"," 1234 "," 1234 ","12435");
-//        createTable.createRow("tttt","tttt","tttt","ttttt");
-//        createTable.createRow("bbbb","bbb","bb","ttttt");
-//        createTable.createRow("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","xxxxx","xxxxx","ttttt");
-//        createTable.render();
+//
+//        System.out.println(String.format("%-15s|",test));
 
 
-        String test="123456789";
-        System.out.println(String.format("%-15s|",test));
-
-            }
-
+    }
 }

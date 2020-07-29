@@ -37,11 +37,11 @@ public class SimpleBox {
     }
 
     protected void lowerWrapper(int width, int textLength) {
-        System.out.print(rightBotCorner);
+        System.out.print(leftBotCorner);
         for (int i = 0; i < textLength + width; i++) {
             System.out.print(horizLine);
         }
-        System.out.print(leftBotCorner);
+        System.out.print(rightBotCorner);
 
     }
 

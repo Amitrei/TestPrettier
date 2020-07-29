@@ -6,17 +6,20 @@ public class MainClass {
     public static void main(String[] args) {
 
 
-        Table createTable = new Table(5);
-        createTable.createHeaders("1234","1234","2134");
-        createTable.createRow("1234","12345","1243");
-        createTable.createRow("1","12345","1343");
+        Table createTable = new Table(100);
+        createTable.createHeaders("1234","124");
+        createTable.createRow("123412355","12445655");
+        createTable.createRow("Coupon{id=0, company=3, title='BestCoupon', Category : FOOD, description='Description', start_date=2020-07-30, end_date=2020-08-09, amount=100, price=100.0, image='image.png'}","214");
         createTable.render();
+
+
+
 
 //        String test="123456789";
 //        int templateLength=3;
 //
 //
-//        System.out.println(String.format("%-15s|",test));
+//        System.out.println(String.format("%-15s|",""));
 
 
     }

@@ -94,7 +94,22 @@ public class Row {
     }
 
 
-    private void centerText(int templateLength, String rowContent, int width, Boolean isFirst) {
+    private String createRowText(int templateLength, String rowContent, int width, Boolean isFirst) {
+
+        if(numOfRowsFlag>1 && !rowParts.contains(rowContent) && rowContent.length() < templateLength+width - 1) {
+            int amountOfWhiteSpace=templateLength+width-1;
+            rowParts.add(String.format("%-"+amountOfWhiteSpace+"s",""));
+
+        }
+
+         if(rowContent.length() > templateLength+width - 1) {
+             //NEED TO CHANTE THE HALF ITS NOT GOOD!
+            final int splitToHalf = rowContent.length() / 2;
+            rowParts.add(rowContent.substring(splitToHalf));
+            rowContent = rowContent.substring(0, splitToHalf);
+            numOfRowsFlag++;
+        }
+
         String stringFormatSymbols = null;
         int whiteSpaces = (templateLength + width);
 
@@ -107,7 +122,7 @@ public class Row {
 
 
         String addedDetailsContent = String.format(stringFormatSymbols + whiteSpaces + "s|", rowContent);
-        System.out.print(addedDetailsContent);
+        return addedDetailsContent;
 
 
     }
@@ -134,12 +149,32 @@ public class Row {
     private void printRowText() {
         for (int i = 0; i < template.length; i++) {
             if (i == 0) {
-                centerText(template[i].length(), rowContent[i], width, true);
+                System.out.print(createRowText(template[i].length(), rowContent[i], width, true));
                 continue;
             }
-            centerText(template[i].length(), rowContent[i], width, false);
+            System.out.print(createRowText(template[i].length(), rowContent[i], width, false));
+        }
+
+
+        if(numOfRowsFlag>1) {
+            System.out.println();
+
+
+            for (int i = 0; i < template.length; i++) {
+                if (i == 0) {
+                    System.out.print(createRowText(template[i].length(), rowParts.get(i), width, true));
+                    continue;
+                }
+
+
+                System.out.print(createRowText(template[i].length(), rowParts.get(i), width, false));
+            }
+
+
         }
     }
+
+
 
     private void printBotRowBorder() {
         for (int i = 0; i < template.length; i++) {

@@ -5,171 +5,147 @@ public class Column {
 
     public Column(int width, String template[], String... headerContent) {
 
+        printUpperColBorder(width, template);
+
+
+        System.out.println();
+        printHeaderText(width, template, headerContent);
+        System.out.println();
+
+        printBotHeaderBorder(width, template);
+
+
+    }
+
+
+    private void botHeaderBorder(int width, int templateLength, int location) {
+
+        char lastCharAtBorder = ' ';
+        char firstCharAtBorder = ' ';
+        switch (location) {
+            case 1:
+                lastCharAtBorder = simpleBox.middleJoinStorke;
+                firstCharAtBorder = simpleBox.leftJoinStroke;
+                break;
+
+            case 3:
+                lastCharAtBorder = simpleBox.rightJoinStroke;
+                break;
+
+            default:
+                lastCharAtBorder = simpleBox.middleJoinStorke;
+                break;
+
+        }
+
+        int whiteSpaces = (templateLength + width);
+
+        String finalBorder = String.format("%-" + whiteSpaces + "s" + lastCharAtBorder, firstCharAtBorder).replace(' ', simpleBox.horizLine);
+        System.out.print(finalBorder);
+
+    }
+
+
+    private void createHeaderText(int templateLength, String headContent, int width, Boolean isFirst) {
+        String stringFormatSymbols = null;
+        int whiteSpaces = (templateLength + width);
+
+        if (isFirst == true) {
+            stringFormatSymbols = "|%-";
+            whiteSpaces--;
+        } else {
+            stringFormatSymbols = "%-";
+        }
+
+
+        String addedDetailsContent = String.format(stringFormatSymbols + whiteSpaces + "s|", headContent);
+        System.out.print(addedDetailsContent);
+    }
+
+
+    private void tableUpperBorder(int width, int templateLength, int location) {
+
+
+        char lastCharAtBorder = ' ';
+        char firstCharAtBorder = ' ';
+        switch (location) {
+
+//
+            case 1:
+                lastCharAtBorder = simpleBox.tBetween;
+                firstCharAtBorder = simpleBox.leftTopCorner;
+                break;
+
+            case 3:
+                lastCharAtBorder = simpleBox.rightTopCorner;
+                break;
+
+            default:
+                lastCharAtBorder = simpleBox.tBetween;
+
+        }
+
+        int whiteSpaces = (templateLength + width);
+        String finalBorder = String.format("%-" + whiteSpaces + "s" + lastCharAtBorder, firstCharAtBorder).replace(' ', simpleBox.horizLine);
+        System.out.print(finalBorder);
+    }
+    private void printBotHeaderBorder(int width, String[] template) {
         for (int i = 0; i < template.length; i++) {
             if (i == 0) {
-                createFirstUpperBorder(width, template[i].length());
+                botHeaderBorder(width, template[i].length(), 1);
                 continue;
             }
 
 
             if (i == template.length - 1) {
-                createLastUpperBorder(width, template[i].length());
+                botHeaderBorder(width, template[i].length(), 3);
                 continue;
             }
 
 
-            createUpperBorder(width, template[i].length());
+            botHeaderBorder(width, template[i].length(), 2);
 
         }
+    }
 
-
-        System.out.println();
+    private void printHeaderText(int width, String[] template, String[] headerContent) {
         for (int i = 0; i < template.length; i++) {
             if (i == 0) {
-                firstCenterText(template[i].length(), headerContent[i], width);
+                createHeaderText(template[i].length(), headerContent[i], width, true);
                 continue;
             }
 
-            centerText(template[i].length(), headerContent[i], width);
+            createHeaderText(template[i].length(), headerContent[i], width, false);
 
 
         }
+    }
 
-        System.out.println();
-
+    private void printUpperColBorder(int width, String[] template) {
         for (int i = 0; i < template.length; i++) {
+
+            if(template.length==1){
+                tableUpperBorder(width, template[i].length(), 3);
+                break;
+
+
+            }
             if (i == 0) {
-                firstLowerColumnBorder(width, template[i].length());
+                tableUpperBorder(width, template[i].length(), 1);
                 continue;
             }
 
 
             if (i == template.length - 1) {
-                lastLowerColumnBorder(width, template[i].length());
+                tableUpperBorder(width, template[i].length(), 3);
                 continue;
             }
 
 
-            lowerColumnBorder(width, template[i].length());
+            tableUpperBorder(width, template[i].length(), 2);
 
         }
-
-
     }
 
-
-    private void lowerColumnBorder(int width, int templateLength) {
-
-
-        for (int i = 0; i < templateLength + width; i++) {
-            System.out.print(simpleBox.horizLine);
-        }
-        System.out.print(simpleBox.middleJoinStorke);
-
-
-    }
-
-
-    private void firstLowerColumnBorder(int width, int templateLength) {
-        for (int i = 0; i < templateLength + width; i++) {
-
-            if (i == 0) {
-                System.out.print(simpleBox.leftJoinStroke);
-                continue;
-            }
-
-            System.out.print(simpleBox.horizLine);
-
-        }
-        System.out.print(simpleBox.middleJoinStorke);
-
-
-    }
-
-    private void lastLowerColumnBorder(int width, int templateLength) {
-
-        for (int i = 0; i < templateLength + width; i++) {
-            System.out.print(simpleBox.horizLine);
-        }
-        System.out.print(simpleBox.rightJoinStroke);
-    }
-
-
-    private void firstCenterText(int templateLength, String headerContent, int width) {
-
-
-        System.out.print(simpleBox.vertLine);
-        System.out.print(headerContent);
-        for (int i = 0; i < (templateLength + width) - headerContent.length() - 1; i++) {
-
-
-            System.out.print(simpleBox.whiteSpace);
-
-
-        }
-
-        System.out.print(simpleBox.vertLine);
-
-
-    }
-
-
-    private void centerText(int templateLength, String headerContent, int width) {
-
-
-        System.out.print(headerContent);
-        for (int i = 0; i < (templateLength + width) - headerContent.length(); i++) {
-
-
-            System.out.print(simpleBox.whiteSpace);
-
-
-        }
-
-        System.out.print(simpleBox.vertLine);
-
-
-    }
-
-
-    private void createUpperBorder(int width, int templateLength) {
-
-
-        for (int i = 0; i < templateLength + width; i++) {
-            System.out.print(simpleBox.horizLine);
-        }
-        System.out.print(simpleBox.tBetween);
-
-
-    }
-
-    private void createLastUpperBorder(int width, int templateLength) {
-
-
-        for (int i = 0; i < templateLength + width; i++) {
-            System.out.print(simpleBox.horizLine);
-        }
-        System.out.print(simpleBox.rightTopCorner);
-
-
-    }
-
-    private void createFirstUpperBorder(int width, int templateLength) {
-
-
-        for (int i = 0; i < templateLength + width; i++) {
-
-            if (i == 0) {
-                System.out.print(simpleBox.leftTopCorner);
-                continue;
-            }
-
-            System.out.print(simpleBox.horizLine);
-
-        }
-        System.out.print(simpleBox.tBetween);
-
-
-    }
 
 }

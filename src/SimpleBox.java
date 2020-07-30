@@ -20,10 +20,7 @@ public class SimpleBox {
         centerText(text, width);
         System.out.println();
         lowerWrapper(width, text.length());
-        System.out.println();
-        centerText(text, width);
-        System.out.println();
-        lowerWrapper(width, text.length());
+
     }
 
 

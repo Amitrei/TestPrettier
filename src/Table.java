@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Table {
     private SimpleBox simpleBox = new SimpleBox();
     public String[] template = null;
@@ -14,10 +15,15 @@ public class Table {
         this.width = width;
 
     }
-    public Table() {
 
+
+    public Table() {
     }
 
+
+
+    // NEED TO ADD Throw Exception if headers was already Made
+    //
     public void createHeaders(String... headerContent) {
         this.headerContent = headerContent;
         template=headerContent.clone();
@@ -31,15 +37,15 @@ public class Table {
     }
 
 
-    public void render() {
-        printArray(template);
+    public void initTable() {
+        System.out.println();
         Column column= new Column(width,template,headerContent);
-        initRowsRender();
+        initRows();
 
 
     }
 
-    private void initRowsRender() {
+    private void initRows() {
         for(int i=0;i<allRows.size();i++) {
 
             if(i==allRows.size()-1) {
@@ -53,8 +59,8 @@ public class Table {
     }
 
 
-
-    public void printArray(String[] array) {
+    // Testing purposes
+    private void printArray(String[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i]);
         }

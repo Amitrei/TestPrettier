@@ -4,7 +4,6 @@ import java.util.List;
 public class Row {
 
     private int width;
-    private String text;
     private SimpleBox simpleBox = new SimpleBox();
     private String[] template;
     private String[] rowContent;
@@ -36,24 +35,21 @@ public class Row {
     }
 
 
-
-
-
     private void lastRowBottomBorder(int width, int templateLength, int location) {
-        char lastCharAtBorder =' ' ;
-        char firstCharAtBorder =' ';
-        switch (location){
+        char lastCharAtBorder = ' ';
+        char firstCharAtBorder = ' ';
+        switch (location) {
             case 1:
-               lastCharAtBorder =simpleBox.botLastT ;
-               firstCharAtBorder =simpleBox.leftBotCorner;
-               break;
+                lastCharAtBorder = simpleBox.botLastT;
+                firstCharAtBorder = simpleBox.leftBotCorner;
+                break;
 
             case 3:
-                lastCharAtBorder =simpleBox.rightBotCorner ;
+                lastCharAtBorder = simpleBox.rightBotCorner;
                 break;
 
             default:
-                lastCharAtBorder =simpleBox.botLastT ;
+                lastCharAtBorder = simpleBox.botLastT;
 
         }
 
@@ -63,7 +59,6 @@ public class Row {
 
 
     }
-
 
 
     private void bottomRowBorder(int width, int templateLength, int location) {
@@ -96,14 +91,14 @@ public class Row {
 
     private String createRowText(int templateLength, String rowContent, int width, Boolean isFirst) {
 
-        if(numOfRowsFlag>1 && !rowParts.contains(rowContent) && rowContent.length() < templateLength+width - 1) {
-            int amountOfWhiteSpace=templateLength+width-1;
-            rowParts.add(String.format("%-"+amountOfWhiteSpace+"s",""));
+        if (numOfRowsFlag > 1 && !rowParts.contains(rowContent) && rowContent.length() < templateLength + width - 1) {
+            int amountOfWhiteSpace = templateLength + width - 1;
+            rowParts.add(String.format("%-" + amountOfWhiteSpace + "s", ""));
 
         }
 
-         if(rowContent.length() > templateLength+width - 1) {
-             //NEED TO CHANTE THE HALF ITS NOT GOOD!
+        if (rowContent.length() > templateLength + width - 1) {
+            //NEED TO CHANGE THE HALF ITS NOT GOOD
             final int splitToHalf = rowContent.length() / 2;
             rowParts.add(rowContent.substring(splitToHalf));
             rowContent = rowContent.substring(0, splitToHalf);
@@ -121,8 +116,8 @@ public class Row {
         }
 
 
-        String addedDetailsContent = String.format(stringFormatSymbols + whiteSpaces + "s|", rowContent);
-        return addedDetailsContent;
+        String finalContent = String.format(stringFormatSymbols + whiteSpaces + "s|", rowContent);
+        return finalContent;
 
 
     }
@@ -130,18 +125,18 @@ public class Row {
     private void printLastRowBotBorder() {
         for (int i = 0; i < template.length; i++) {
             if (i == 0) {
-                lastRowBottomBorder(width, template[i].length(),1);
+                lastRowBottomBorder(width, template[i].length(), 1);
                 continue;
             }
 
 
             if (i == template.length - 1) {
-                lastRowBottomBorder(width, template[i].length(),3);
+                lastRowBottomBorder(width, template[i].length(), 3);
                 continue;
             }
 
 
-            lastRowBottomBorder(width, template[i].length(),2);
+            lastRowBottomBorder(width, template[i].length(), 2);
 
         }
     }
@@ -156,11 +151,11 @@ public class Row {
         }
 
 
-        if(numOfRowsFlag>1) {
+        if (numOfRowsFlag > 1) {
             System.out.println();
 
 
-            for (int i = 0; i < template.length; i++) {
+            for (int i = 0; i < rowParts.size(); i++) {
                 if (i == 0) {
                     System.out.print(createRowText(template[i].length(), rowParts.get(i), width, true));
                     continue;
@@ -173,7 +168,6 @@ public class Row {
 
         }
     }
-
 
 
     private void printBotRowBorder() {

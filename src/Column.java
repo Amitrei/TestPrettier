@@ -47,6 +47,7 @@ public class Column {
 
 
     private void createHeaderText(int templateLength, String headContent, int width, Boolean isFirst) {
+        String headCenteredContent=centerText(headContent,templateLength+width);
         String stringFormatSymbols = null;
         int whiteSpaces = (templateLength + width);
 
@@ -58,10 +59,14 @@ public class Column {
         }
 
 
-        String addedDetailsContent = String.format(stringFormatSymbols + whiteSpaces + "s|", headContent);
+        String addedDetailsContent = String.format(stringFormatSymbols + whiteSpaces + "s|", headCenteredContent);
         System.out.print(addedDetailsContent);
     }
 
+    private String centerText(String headerContent, int templateLength) {
+        int centerize=(templateLength/2)+(headerContent.length()/2);
+        return String.format("%"+centerize+"s",headerContent);
+    }
 
     private void tableUpperBorder(int width, int templateLength, int location) {
 

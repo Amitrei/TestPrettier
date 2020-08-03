@@ -1,12 +1,13 @@
-public class Column {
+package com.amitrei.testprettier.beans;
+
+public class Header {
 
     private SimpleBox simpleBox = new SimpleBox();
 
 
-    public Column(int width, String template[], String... headerContent) {
+    public Header(int width, String template[], String... headerContent) {
 
         printUpperColBorder(width, template);
-
 
         System.out.println();
         printHeaderText(width, template, headerContent);
@@ -47,7 +48,7 @@ public class Column {
 
 
     private void createHeaderText(int templateLength, String headContent, int width, Boolean isFirst) {
-        String headCenteredContent=centerText(headContent,templateLength+width);
+        String headerCentered = centerText(headContent, templateLength + width);
         String stringFormatSymbols = null;
         int whiteSpaces = (templateLength + width);
 
@@ -59,13 +60,13 @@ public class Column {
         }
 
 
-        String addedDetailsContent = String.format(stringFormatSymbols + whiteSpaces + "s|", headCenteredContent);
+        String addedDetailsContent = String.format(stringFormatSymbols + whiteSpaces + "s|", headerCentered);
         System.out.print(addedDetailsContent);
     }
 
-    private String centerText(String headerContent, int templateLength) {
-        int centerize=(templateLength/2)+(headerContent.length()/2);
-        return String.format("%"+centerize+"s",headerContent);
+    private String centerText(String headerContent, int totalLength) {
+        int center = (totalLength / 2) + (headerContent.length() / 2);
+        return String.format("%" + center + "s", headerContent);
     }
 
     private void tableUpperBorder(int width, int templateLength, int location) {
@@ -75,9 +76,8 @@ public class Column {
         char firstCharAtBorder = ' ';
         switch (location) {
 
-//
             case 1:
-                lastCharAtBorder = simpleBox.tBetween;
+                lastCharAtBorder = simpleBox.topJoinT;
                 firstCharAtBorder = simpleBox.leftTopCorner;
                 break;
 
@@ -86,7 +86,7 @@ public class Column {
                 break;
 
             default:
-                lastCharAtBorder = simpleBox.tBetween;
+                lastCharAtBorder = simpleBox.topJoinT;
 
         }
 
@@ -94,6 +94,7 @@ public class Column {
         String finalBorder = String.format("%-" + whiteSpaces + "s" + lastCharAtBorder, firstCharAtBorder).replace(' ', simpleBox.horizLine);
         System.out.print(finalBorder);
     }
+
     private void printBotHeaderBorder(int width, String[] template) {
         for (int i = 0; i < template.length; i++) {
             if (i == 0) {
@@ -129,7 +130,7 @@ public class Column {
     private void printUpperColBorder(int width, String[] template) {
         for (int i = 0; i < template.length; i++) {
 
-            if(template.length==1){
+            if (template.length == 1) {
                 tableUpperBorder(width, template[i].length(), 3);
                 break;
 

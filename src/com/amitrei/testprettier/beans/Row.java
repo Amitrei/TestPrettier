@@ -1,3 +1,5 @@
+package com.amitrei.testprettier.beans;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class Row {
         char firstCharAtBorder = ' ';
         switch (location) {
             case 1:
-                lastCharAtBorder = simpleBox.botLastT;
+                lastCharAtBorder = simpleBox.botJoinT;
                 firstCharAtBorder = simpleBox.leftBotCorner;
                 break;
 
@@ -49,7 +51,7 @@ public class Row {
                 break;
 
             default:
-                lastCharAtBorder = simpleBox.botLastT;
+                lastCharAtBorder = simpleBox.botJoinT;
 
         }
 

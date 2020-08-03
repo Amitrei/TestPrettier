@@ -1,3 +1,5 @@
+package com.amitrei.testprettier.beans;
+
 public class SimpleBox {
     protected char leftTopCorner = '┌';
     protected char rightTopCorner = '┐';
@@ -9,8 +11,8 @@ public class SimpleBox {
     protected char leftBotCorner = '└';
     protected char rightBotCorner = '┘';
     protected String whiteSpace = " ";
-    protected char tBetween = '┬';
-    protected char botLastT = '┴';
+    protected char topJoinT = '┬';
+    protected char botJoinT = '┴';
 
 
     public void createBox(String text, int width) {

@@ -1,13 +1,15 @@
+package com.amitrei.testprettier.beans;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class Table {
-    private SimpleBox simpleBox = new SimpleBox();
-    public String[] template = null;
-    public String[] headerContent = null;
-    public String[] rowContent = null;
-    public List<Row> allRows= new ArrayList<>();
+    private String[] template = null;
+    private String[] headerContent = null;
+    private String[] rowContent = null;
+    private List<Row> allRows= new ArrayList<>();
     private int width=2;
 
 
@@ -18,17 +20,18 @@ public class Table {
 
 
     public Table() {
+
     }
 
 
 
-    // NEED TO ADD Throw Exception if headers was already Made
-    //
+    // NEED TO ADD Throw Exception if headers was already made
     public void createHeaders(String... headerContent) {
         this.headerContent = headerContent;
         template=headerContent.clone();
 
     }
+
 
     public void createRow(String... rowContent) {
         this.rowContent = rowContent;
@@ -39,7 +42,7 @@ public class Table {
 
     public void initTable() {
         System.out.println();
-        Column column= new Column(width,template,headerContent);
+        Header header = new Header(width,template,headerContent);
         initRows();
 
 

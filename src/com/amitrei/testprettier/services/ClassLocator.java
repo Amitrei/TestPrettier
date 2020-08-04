@@ -4,10 +4,10 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-public class LocateClass {
+public class ClassLocator {
     private Set<Class<?>> locatedClasses = new HashSet<>();
 
-    public LocateClass() {
+    public ClassLocator() {
         File file = new File(getDirectory(this.getClass()));
 
         try {

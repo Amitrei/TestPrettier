@@ -37,6 +37,10 @@ public class Row {
     }
 
 
+
+
+
+
     private void lastRowBottomBorder(int width, int templateLength, int location) {
         char lastCharAtBorder = ' ';
         char firstCharAtBorder = ' ';
@@ -92,20 +96,20 @@ public class Row {
 
 
     private String createRowText(int templateLength, String rowContent, int width, Boolean isFirst) {
-
-        if (numOfRowsFlag > 1 && !rowParts.contains(rowContent) && rowContent.length() < templateLength + width - 1) {
-            int amountOfWhiteSpace = templateLength + width - 1;
-            rowParts.add(String.format("%-" + amountOfWhiteSpace + "s", ""));
-
-        }
-
-        if (rowContent.length() > templateLength + width - 1) {
-            //NEED TO CHANGE THE HALF ITS NOT GOOD
-            final int splitToHalf = rowContent.length() / 2;
-            rowParts.add(rowContent.substring(splitToHalf));
-            rowContent = rowContent.substring(0, splitToHalf);
-            numOfRowsFlag++;
-        }
+//
+//        if (numOfRowsFlag > 1 && !rowParts.contains(rowContent) && rowContent.length() < templateLength + width - 1) {
+//            int amountOfWhiteSpace = templateLength + width - 1;
+//            rowParts.add(String.format("%-" + amountOfWhiteSpace + "s", ""));
+//
+//        }
+//
+//        if (rowContent.length() > templateLength + width - 1) {
+//            //NEED TO CHANGE THE HALF ITS NOT GOOD
+//            final int splitToHalf = rowContent.length() / 2;
+//            rowParts.add(rowContent.substring(splitToHalf));
+//            rowContent = rowContent.substring(0, splitToHalf);
+//            numOfRowsFlag++;
+//        }
 
         String stringFormatSymbols = null;
         int whiteSpaces = (templateLength + width);

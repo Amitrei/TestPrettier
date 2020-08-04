@@ -1,8 +1,8 @@
 package com.amitrei.testprettier;
 
-import com.amitrei.testprettier.annotations.Test;
+import com.amitrei.testprettier.annotations.TableTemplate;
 
-@Test
+@TableTemplate
 public class Book {
     private int id;
     private String name;

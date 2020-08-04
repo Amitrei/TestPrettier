@@ -6,11 +6,14 @@ import java.util.List;
 
 
 public class Table {
-    private String[] template = null;
-    private String[] headerContent = null;
+
+
+    private String templateName;
+    public String[] template = null;
+    public String[] headerContent = null;
     private String[] rowContent = null;
     private List<Row> allRows= new ArrayList<>();
-    private int width=2;
+    private int width=10;
 
 
     public Table(int width) {
@@ -18,6 +21,9 @@ public class Table {
 
     }
 
+    public Table(String templateName) {
+        this.setTemplateName(templateName);
+    }
 
     public Table() {
 
@@ -26,16 +32,17 @@ public class Table {
 
 
     // NEED TO ADD Throw Exception if headers was already made
+
     public void createHeaders(String... headerContent) {
         this.headerContent = headerContent;
         template=headerContent.clone();
 
     }
 
-
-    public void createRow(String... rowContent) {
+    public Table createRow(String... rowContent) {
         this.rowContent = rowContent;
         allRows.add(new Row(width,template,rowContent));
+        return this;
 
     }
 
@@ -63,14 +70,24 @@ public class Table {
 
 
     // Testing purposes
-    private void printArray(String[] array) {
+
+    public void printArray(String[] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i]);
         }
 
         }
+    public String getTemplateName() {
+        return templateName;
+    }
 
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
+    }
 
+    public void setWidth(int width) {
+        this.width = width;
+    }
 
 
 }

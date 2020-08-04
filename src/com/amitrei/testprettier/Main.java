@@ -24,8 +24,7 @@ public class Main {
 
 
         TableManager tableManager = TableManager.getInstance();
-        tableManager.getTable("Book").createRow("aaaaaa","aaaaaa","aaaaaa","aaaaaa","aaaaaa","aaaaaa").createRow("aaaaaa","aaaaaa","aaaaaa","aaaaaa","aaaaaa","aaaaaa").initTable();
-
+        tableManager.getTable("Book").createRow(A).initTable();
 
 
 

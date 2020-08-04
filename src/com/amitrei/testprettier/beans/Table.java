@@ -1,5 +1,8 @@
 package com.amitrei.testprettier.beans;
 
+import com.amitrei.testprettier.services.MethodScanner;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +17,7 @@ public class Table {
     private String[] rowContent = null;
     private List<Row> allRows= new ArrayList<>();
     private int width=10;
+    private MethodScanner methodScanner;
 
 
     public Table(int width) {
@@ -46,6 +50,15 @@ public class Table {
 
     }
 
+
+    public Table createRow(Object object) {
+        methodScanner= new MethodScanner();
+        List<String>allGettersResults=methodScanner.methodInvoker(methodScanner.scanForGetters(object));
+        this.rowContent =  convertFromListToArray(allGettersResults);
+        allRows.add(new Row(width,template,rowContent));
+        return this;
+
+    }
 
     public void initTable() {
         System.out.println();
@@ -87,6 +100,14 @@ public class Table {
 
     public void setWidth(int width) {
         this.width = width;
+    }
+
+    private String[] convertFromListToArray(List<String> headers) {
+        String[] headersArray = new String[headers.size()];
+        for (int i = 0; i < headers.size(); i++) {
+            headersArray[i] = headers.get(i);
+        }
+        return headersArray;
     }
 
 

@@ -8,12 +8,10 @@ public class Row {
     private int width;
     private SimpleBox simpleBox = new SimpleBox();
     private String[] template;
-    private String[] rowContent;
+    private List<String> rowContent;
     private int numOfRowsFlag = 1;
-    List<String> rowParts = new ArrayList<>();
 
-
-    public Row(int width, String template[], String... rowContent) {
+    public Row(int width, String template[], List<String> rowContent) {
         this.width = width;
         this.template = template;
         this.rowContent = rowContent;
@@ -35,10 +33,6 @@ public class Row {
         System.out.println();
         printLastRowBotBorder();
     }
-
-
-
-
 
 
     private void lastRowBottomBorder(int width, int templateLength, int location) {
@@ -95,39 +89,6 @@ public class Row {
     }
 
 
-    private String createRowText(int templateLength, String rowContent, int width, Boolean isFirst) {
-//
-//        if (numOfRowsFlag > 1 && !rowParts.contains(rowContent) && rowContent.length() < templateLength + width - 1) {
-//            int amountOfWhiteSpace = templateLength + width - 1;
-//            rowParts.add(String.format("%-" + amountOfWhiteSpace + "s", ""));
-//
-//        }
-//
-//        if (rowContent.length() > templateLength + width - 1) {
-//            //NEED TO CHANGE THE HALF ITS NOT GOOD
-//            final int splitToHalf = rowContent.length() / 2;
-//            rowParts.add(rowContent.substring(splitToHalf));
-//            rowContent = rowContent.substring(0, splitToHalf);
-//            numOfRowsFlag++;
-//        }
-
-        String stringFormatSymbols = null;
-        int whiteSpaces = (templateLength + width);
-
-        if (isFirst == true) {
-            stringFormatSymbols = "|%-";
-            whiteSpaces--;
-        } else {
-            stringFormatSymbols = "%-";
-        }
-
-
-        String finalContent = String.format(stringFormatSymbols + whiteSpaces + "s|", rowContent);
-        return finalContent;
-
-
-    }
-
     private void printLastRowBotBorder() {
         for (int i = 0; i < template.length; i++) {
             if (i == 0) {
@@ -147,32 +108,107 @@ public class Row {
         }
     }
 
-    private void printRowText() {
-        for (int i = 0; i < template.length; i++) {
-            if (i == 0) {
-                System.out.print(createRowText(template[i].length(), rowContent[i], width, true));
-                continue;
-            }
-            System.out.print(createRowText(template[i].length(), rowContent[i], width, false));
+    private String createRowText(int templateLength, String rowContent, int width, Boolean isFirst) {
+
+        String stringFormatSymbols = null;
+        int whiteSpaces = (templateLength + width);
+
+        if (isFirst == true) {
+            stringFormatSymbols = "|%-";
+            whiteSpaces--;
+        } else {
+            stringFormatSymbols = "%-";
         }
 
+        String finalContent = String.format(stringFormatSymbols + whiteSpaces + "s|", rowContent);
+        return finalContent;
 
-        if (numOfRowsFlag > 1) {
+
+    }
+
+    public List<String> splitIntoRows(List<String> arr, int index) {
+
+
+
+        if(arr.stream().allMatch(s -> s.length()<2)) {
+            return arr;
+        }
+
+        if(index==0) {
+        // Do not print new line
+        }
+        else {
             System.out.println();
 
+        }
 
-            for (int i = 0; i < rowParts.size(); i++) {
-                if (i == 0) {
-                    System.out.print(createRowText(template[i].length(), rowParts.get(i), width, true));
-                    continue;
-                }
+        index++;
+        return splitIntoRows(trimmer(arr),index);
 
 
-                System.out.print(createRowText(template[i].length(), rowParts.get(i), width, false));
+    }
+
+
+    private List<String> trimmer(List<String> arr) {
+        List<String> row = new ArrayList<>();
+        List<String> nextRow = new ArrayList<>();
+        for (int i=0;i<arr.size();i++) {
+            int templateWidth = template[i].length() + width -1;
+
+
+            if (arr.get(i).length() >= templateWidth) {
+                nextRow.add(arr.get(i).substring(templateWidth));
+                row.add(arr.get(i).substring(0,templateWidth));
+                continue;
             }
 
 
+            row.add(arr.get(i));
+
+            if(arr.get(i).length()%templateWidth!=0 || arr.get(i).length()%9==templateWidth){
+                nextRow.add(" ");
+                continue;
+            }
+
+            nextRow.add(arr.get(i));
+
+
         }
+
+
+//        System.out.println("next" + nextRow);
+        for (int i = 0; i < template.length; i++) {
+            if (i == 0) {
+
+                System.out.print(createRowText(template[i].length(), row.get(i), width, true));
+                continue;
+            }
+
+            System.out.print(createRowText(template[i].length(), row.get(i), width, false));
+
+
+
+        }
+        return nextRow;
+    }
+
+
+    private void printRowText() {
+
+
+//       for (int i = 0; i < template.length; i++) {
+//            if (i == 0) {
+//                System.out.print(createRowText(template[i].length(), rowContent.get(i), width, true));
+//                continue;
+//            }
+//            System.out.print(createRowText(template[i].length(), rowContent.get(i), width, false));
+//        }
+
+
+
+            splitIntoRows(rowContent,0);
+
+
     }
 
 

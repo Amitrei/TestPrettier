@@ -2,6 +2,11 @@ package com.amitrei.testprettier;
 
 import com.amitrei.testprettier.annotations.TableTemplate;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @TableTemplate
 public class Book {
     private int id;
@@ -10,7 +15,7 @@ public class Book {
     private int start_date;
     private int end_date;
     private String image;
-
+    private Map<String,String> stamList= new HashMap<>();
 
     public Book(int id, String name, String description, int start_date, int end_date, String image) {
         this.id = id;
@@ -23,6 +28,10 @@ public class Book {
 
     public int getId() {
         return id;
+    }
+
+    public Map<String,String> getStamList() {
+        return stamList;
     }
 
     public String getName() {

@@ -25,11 +25,4 @@ public class AnnotationScanner {
     }
 
 
-
-//      for(Method method : clazz.getDeclaredMethods()){
-//              if(method.getName().startsWith("get")){
-//              headers.add(method.getName().substring(3));
-//              }
-//              }
-
 }

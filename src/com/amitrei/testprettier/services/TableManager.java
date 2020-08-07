@@ -1,7 +1,6 @@
-package com.amitrei.testprettier.beans;
+package com.amitrei.testprettier.services;
 
-import com.amitrei.testprettier.services.AnnotationScanner;
-import com.amitrei.testprettier.services.MethodScanner;
+import com.amitrei.testprettier.beans.Table;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class TableManager {
     AnnotationScanner annotationScan = new AnnotationScanner();
     private Class<? extends Annotation> tableTemplateAnno = com.amitrei.testprettier.annotations.TableTemplate.class;
     private Set<Class<?>> allAnnotatedClasses = new HashSet<>();
-    private MethodScanner methodScanner = new MethodScanner();
+    private MethodServices methodScanner = new MethodServices();
 
     private TableManager() {
         scanForAnnoClasses(tableTemplateAnno);
@@ -30,7 +29,7 @@ public class TableManager {
 
     }
 
-    public Table getTable(String templateName) {
+    public Table getTemplate(String templateName) {
         for (Table table : allTables) {
             if (table.getTemplateName().equals(templateName)) {
                 return table;
@@ -52,9 +51,6 @@ public class TableManager {
         allAnnotatedClasses = annotationScan.scanClasses(annotation);
     }
 
-    public List<Table> getAllTables() {
-        return allTables;
-    }
 
 
     public static TableManager getInstance() {

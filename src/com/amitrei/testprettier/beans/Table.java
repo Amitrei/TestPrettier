@@ -1,10 +1,8 @@
 package com.amitrei.testprettier.beans;
 
-import com.amitrei.testprettier.services.MethodScanner;
+import com.amitrei.testprettier.services.MethodServices;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -17,7 +15,7 @@ public class Table {
     private String[] rowContent = null;
     private List<Row> allRows= new ArrayList<>();
     private int width=10;
-    private MethodScanner methodScanner;
+    private MethodServices methodScanner;
 
 
     public Table(int width) {
@@ -43,19 +41,19 @@ public class Table {
 
     }
 
-    public Table createRow(String... rowContent) {
-        this.rowContent = rowContent;
-        allRows.add(new Row(width,template,rowContent));
-        return this;
-
-    }
+//    public Table createRow(String... rowContent) {
+//        this.rowContent = rowContent;
+//        allRows.add(new Row(width,template,rowContent));
+//        return this;
+//
+//    }
 
 
     public Table createRow(Object object) {
-        methodScanner= new MethodScanner();
+        methodScanner= new MethodServices();
         List<String>allGettersResults=methodScanner.methodInvoker(methodScanner.scanForGetters(object));
         this.rowContent =  convertFromListToArray(allGettersResults);
-        allRows.add(new Row(width,template,rowContent));
+        allRows.add(new Row(width,template,allGettersResults));
         return this;
 
     }
@@ -98,8 +96,9 @@ public class Table {
         this.templateName = templateName;
     }
 
-    public void setWidth(int width) {
+    public Table setWidth(int width) {
         this.width = width;
+        return this;
     }
 
     private String[] convertFromListToArray(List<String> headers) {

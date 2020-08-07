@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class MethodScanner {
+public class MethodServices {
     private List<String> headersFromGetters = new ArrayList<>();
     Object readRowFromObj;
 
-    public MethodScanner() {
+    public MethodServices() {
     }
 
 

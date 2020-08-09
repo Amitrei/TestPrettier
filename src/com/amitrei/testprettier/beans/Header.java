@@ -1,23 +1,40 @@
 package com.amitrei.testprettier.beans;
 
-public class Header {
+import com.amitrei.testprettier.interfaces.TableParts;
+
+public class Header implements TableParts {
 
     private SimpleBox simpleBox = new SimpleBox();
 
 
     public Header(int width, String template[], String... headerContent) {
 
-        printUpperColBorder(width, template);
 
+
+        printUpperColBorder(width, template);
         System.out.println();
         printHeaderText(width, template, headerContent);
         System.out.println();
-
         printBotHeaderBorder(width, template);
 
 
     }
 
+
+    @Override
+    public void startRender() {
+
+    }
+
+    @Override
+    public void middleRender() {
+
+    }
+
+    @Override
+    public void endRender() {
+
+    }
 
     private void botHeaderBorder(int width, int templateLength, int location) {
 
@@ -45,6 +62,8 @@ public class Header {
         System.out.print(finalBorder);
 
     }
+
+
 
 
     private void createHeaderText(int templateLength, String headContent, int width, Boolean isFirst) {
@@ -152,6 +171,7 @@ public class Header {
 
         }
     }
+
 
 
 }

@@ -1,20 +1,36 @@
 package com.amitrei.testprettier.beans;
 
+import com.amitrei.testprettier.interfaces.Rows;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Row {
+public class Row implements Rows {
 
     private int width;
     private SimpleBox simpleBox = new SimpleBox();
     private String[] template;
     private List<String> rowContent;
-    private int numOfRowsFlag = 1;
 
     public Row(int width, String template[], List<String> rowContent) {
         this.width = width;
         this.template = template;
         this.rowContent = rowContent;
+    }
+
+
+    @Override
+    public void startRender() {
+        rowRender();
+    }
+
+    @Override
+    public void middleRender() {
+        rowRender();
+    }
+
+    @Override
+    public void endRender() {
+        lastRowRender();
     }
 
 
@@ -35,7 +51,7 @@ public class Row {
     }
 
 
-    private void lastRowBottomBorder(int width, int templateLength, int location) {
+    protected void lastRowBottomBorder(int width, int templateLength, int location) {
         char lastCharAtBorder = ' ';
         char firstCharAtBorder = ' ';
         switch (location) {
@@ -61,7 +77,7 @@ public class Row {
     }
 
 
-    private void bottomRowBorder(int width, int templateLength, int location) {
+    protected void bottomRowBorder(int width, int templateLength, int location) {
 
         char lastCharAtBorder = ' ';
         char firstCharAtBorder = ' ';
@@ -89,7 +105,7 @@ public class Row {
     }
 
 
-    private void printLastRowBotBorder() {
+    protected void printLastRowBotBorder() {
         for (int i = 0; i < template.length; i++) {
             if (i == 0) {
                 lastRowBottomBorder(width, template[i].length(), 1);
@@ -108,7 +124,7 @@ public class Row {
         }
     }
 
-    private String createRowText(int templateLength, String rowContent, int width, Boolean isFirst) {
+    protected String createRowText(int templateLength, String rowContent, int width, Boolean isFirst) {
 
         String stringFormatSymbols = null;
         int whiteSpaces = (templateLength + width);
@@ -126,24 +142,23 @@ public class Row {
 
     }
 
-    public List<String> splitIntoRows(List<String> arr, int index) {
+
+    private List<String> splitIntoRows(List<String> arr, int index) {
 
 
-
-        if(arr.stream().allMatch(s -> s.length()<2)) {
+        if (arr.stream().allMatch(s -> s.length() < 2)) {
             return arr;
         }
 
-        if(index==0) {
-        // Do not print new line
-        }
-        else {
+        if (index == 0) {
+            // Do not print new line
+        } else {
             System.out.println();
 
         }
 
         index++;
-        return splitIntoRows(trimmer(arr),index);
+        return splitIntoRows(trimmer(arr), index);
 
 
     }
@@ -152,20 +167,20 @@ public class Row {
     private List<String> trimmer(List<String> arr) {
         List<String> row = new ArrayList<>();
         List<String> nextRow = new ArrayList<>();
-        for (int i=0;i<arr.size();i++) {
-            int templateWidth = template[i].length() + width -1;
+        for (int i = 0; i < arr.size(); i++) {
+            int templateWidth = template[i].length() + width - 1;
 
 
             if (arr.get(i).length() >= templateWidth) {
                 nextRow.add(arr.get(i).substring(templateWidth));
-                row.add(arr.get(i).substring(0,templateWidth));
+                row.add(arr.get(i).substring(0, templateWidth));
                 continue;
             }
 
 
             row.add(arr.get(i));
 
-            if(arr.get(i).length()%templateWidth!=0 || arr.get(i).length()%9==templateWidth){
+            if (arr.get(i).length() % templateWidth != 0 || arr.get(i).length() % 9 == templateWidth) {
                 nextRow.add(" ");
                 continue;
             }
@@ -176,7 +191,6 @@ public class Row {
         }
 
 
-//        System.out.println("next" + nextRow);
         for (int i = 0; i < template.length; i++) {
             if (i == 0) {
 
@@ -187,32 +201,17 @@ public class Row {
             System.out.print(createRowText(template[i].length(), row.get(i), width, false));
 
 
-
         }
         return nextRow;
     }
 
 
-    private void printRowText() {
-
-
-//       for (int i = 0; i < template.length; i++) {
-//            if (i == 0) {
-//                System.out.print(createRowText(template[i].length(), rowContent.get(i), width, true));
-//                continue;
-//            }
-//            System.out.print(createRowText(template[i].length(), rowContent.get(i), width, false));
-//        }
-
-
-
-            splitIntoRows(rowContent,0);
-
-
+    protected void printRowText() {
+        splitIntoRows(rowContent, 0);
     }
 
 
-    private void printBotRowBorder() {
+    protected void printBotRowBorder() {
         for (int i = 0; i < template.length; i++) {
             if (i == 0) {
                 bottomRowBorder(width, template[i].length(), 1);

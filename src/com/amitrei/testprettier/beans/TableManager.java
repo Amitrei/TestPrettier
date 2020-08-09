@@ -1,6 +1,6 @@
-package com.amitrei.testprettier.services;
-
-import com.amitrei.testprettier.beans.Table;
+package com.amitrei.testprettier.beans;
+import com.amitrei.testprettier.services.AnnotationScanner;
+import com.amitrei.testprettier.services.MethodServices;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -15,9 +15,15 @@ public class TableManager {
     private List<Table> allTables = new ArrayList<>();
 
     AnnotationScanner annotationScan = new AnnotationScanner();
-    private Class<? extends Annotation> tableTemplateAnno = com.amitrei.testprettier.annotations.TableTemplate.class;
+    private final Class<? extends Annotation> tableTemplateAnno = com.amitrei.testprettier.annotations.TableTemplate.class;
     private Set<Class<?>> allAnnotatedClasses = new HashSet<>();
     private MethodServices methodScanner = new MethodServices();
+
+    /**
+     * @Method TableManager
+     * Scanning for annotations of all classes
+     * then creates a new table with the template headers (getters of the annotated class).
+     */
 
     private TableManager() {
         scanForAnnoClasses(tableTemplateAnno);
@@ -27,6 +33,13 @@ public class TableManager {
             allTables.add(table);
         }
 
+    }
+
+
+
+    public Table createTable() {
+        Table table = new Table();
+        return table;
     }
 
     public Table getTemplate(String templateName) {
@@ -39,7 +52,7 @@ public class TableManager {
         return null;
     }
 
-    public String[] convertFromListToArray(List<String> headers) {
+    private String[] convertFromListToArray(List<String> headers) {
         String[] headersArray = new String[headers.size()];
         for (int i = 0; i < headers.size(); i++) {
             headersArray[i] = headers.get(i);
@@ -47,7 +60,7 @@ public class TableManager {
         return headersArray;
     }
 
-    public void scanForAnnoClasses(Class<? extends Annotation> annotation) {
+    private void scanForAnnoClasses(Class<? extends Annotation> annotation) {
         allAnnotatedClasses = annotationScan.scanClasses(annotation);
     }
 

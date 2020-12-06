@@ -9,52 +9,43 @@ import java.util.Map;
 
 @TableTemplate
 public class Book {
-    private int id;
     private String name;
-    private String description;
-    private int start_date;
-    private int end_date;
-    private String image;
-    private Map<String,String> stamList= new HashMap<>();
+    private String author;
+    private String genre;
 
-    public Book(int id, String name, String description, int start_date, int end_date, String image) {
-        this.id = id;
+
+
+
+    public Book(String name, String author, String genre) {
         this.name = name;
-        this.description = description;
-        this.start_date = start_date;
-        this.end_date = end_date;
-        this.image = image;
-    }
+        this.author = author;
+        this.genre = genre;
 
-    public int getId() {
-        return id;
-    }
-
-    public Map<String,String> getStamList() {
-        return stamList;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getStart_date() {
-        return start_date;
+    public String getAuthor() {
+        return author;
     }
 
-    public int getEnd_date() {
-        return end_date;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getImage() {
-        return image;
+    public String getGenre() {
+        return genre;
     }
 
-
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 }
 
 

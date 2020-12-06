@@ -4,11 +4,11 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ClassLocator {
+public class ClassService {
     private Set<Class<?>> locatedClasses = new HashSet<>();
 
-    public ClassLocator() {
-        File file = new File(getDirectory(this.getClass()));
+    public ClassService(Class<?> clazz) {
+        File file = new File(getDirectory(clazz));
 
         try {
             for (File innerFile : file.listFiles()) {

@@ -2,7 +2,7 @@ package com.amitrei.testprettier.beans;
 
 import com.amitrei.testprettier.interfaces.Rows;
 import com.amitrei.testprettier.interfaces.TableParts;
-import com.amitrei.testprettier.services.MethodServices;
+import com.amitrei.testprettier.services.MethodService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,13 +18,15 @@ public class Table {
     private String[] rowContent;
     private List<Rows> allRows= new ArrayList<>();
     private int width=10;
-    private MethodServices methodScanner;
+    private MethodService methodScanner;
     private List<TableParts> allParts = new ArrayList<>();
+    private Class<?> headerClass;
 
 
 
-    protected Table(String templateName) {
+    protected Table(String templateName,Class<?> headerClass) {
         this.setTemplateName(templateName);
+        this.headerClass=headerClass;
     }
 
     public Table() {
@@ -33,13 +35,16 @@ public class Table {
 
 
 
-    // NEED TO ADD Throw Exception if headers was already made
 
+    // NEED TO ADD Throw Exception if headers was already made
     public Table createHeaders(String... headerContent) {
         this.headerContent = headerContent;
         template=headerContent.clone();
         return this;
     }
+
+
+    // Free content row
 
     public Table createRow(String... rowContent) {
         this.rowContent = rowContent;
@@ -48,17 +53,21 @@ public class Table {
         return this;
 
     }
-
     public Table createTitle(String titleContent) {
         Title title = new Title(template,width,titleContent);
         return this;
 
     }
 
+    /**
+     * @Method - Creating a row by reflecting getters from an object
+     */
+
     public Table createRow(Object object) {
-        methodScanner= new MethodServices();
+        if(!object.getClass().equals(headerClass)) throw new IllegalArgumentException("Not the same class");
+        methodScanner= new MethodService();
         List<String>allGettersResults=methodScanner.methodInvoker(methodScanner.scanForGetters(object));
-        this.rowContent =  convertFromListToArray(allGettersResults);
+        this.rowContent = convertFromListToArray(allGettersResults);
         allRows.add(new Row(width,template,allGettersResults));
         return this;
 
@@ -114,4 +123,8 @@ public class Table {
     }
 
 
+
+    protected void setHeaderClass(Class<?> headerClass) {
+        this.headerClass = headerClass;
+    }
 }

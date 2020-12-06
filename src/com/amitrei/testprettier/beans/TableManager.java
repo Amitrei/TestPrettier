@@ -1,6 +1,7 @@
 package com.amitrei.testprettier.beans;
-import com.amitrei.testprettier.services.AnnotationScanner;
-import com.amitrei.testprettier.services.MethodServices;
+import com.amitrei.testprettier.services.AnnotationService;
+import com.amitrei.testprettier.services.FieldService;
+import com.amitrei.testprettier.services.MethodService;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -14,10 +15,11 @@ public class TableManager {
 
     private List<Table> allTables = new ArrayList<>();
 
-    AnnotationScanner annotationScan = new AnnotationScanner();
+    private AnnotationService annotationScan;
     private final Class<? extends Annotation> tableTemplateAnno = com.amitrei.testprettier.annotations.TableTemplate.class;
     private Set<Class<?>> allAnnotatedClasses = new HashSet<>();
-    private MethodServices methodScanner = new MethodServices();
+    private MethodService methodScanner = new MethodService();
+    private FieldService fieldServices = new FieldService();
 
     /**
      * @Method TableManager
@@ -25,15 +27,20 @@ public class TableManager {
      * then creates a new table with the template headers (getters of the annotated class).
      */
 
-    private TableManager() {
+
+
+    private TableManager(Class<?> mainClass) {
+        annotationScan = new AnnotationService(mainClass);
         scanForAnnoClasses(tableTemplateAnno);
         for (Class<?> clazz : allAnnotatedClasses) {
-            Table table = new Table(clazz.getSimpleName());
+            Table table = new Table(clazz.getSimpleName(),clazz);
             table.createHeaders(convertFromListToArray(methodScanner.scanForGetters(clazz)));
             allTables.add(table);
         }
 
     }
+
+
 
 
 
@@ -61,16 +68,16 @@ public class TableManager {
     }
 
     private void scanForAnnoClasses(Class<? extends Annotation> annotation) {
-        allAnnotatedClasses = annotationScan.scanClasses(annotation);
+        allAnnotatedClasses = annotationScan.scanForAnnotations(annotation);
     }
 
 
 
-    public static TableManager getInstance() {
+    public static TableManager getInstance(Class<?> mainClass) {
         if (instance == null) {
             synchronized (TableManager.class) {
                 if (instance == null) {
-                    instance = new TableManager();
+                    instance = new TableManager(mainClass);
                 }
             }
         }

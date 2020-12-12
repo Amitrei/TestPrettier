@@ -9,16 +9,21 @@ public class Main {
     public static void main(String[] args) {
 
 
-        Book harryPotter = new Book("Harry Potter","Jk Rowling","fantasy");
-        Book mobyDick = new Book("Moby Dick","Herman Melville","fantasy");
-        Book treasureIsland = new Book("Treasure Island"," Robert Louis Stevenson","adventure");
+        Book harryPotter = new Book("1  ","1","1");
+        Book mobyDick = new Book("1","1","1");
+        Book treasureIsland = new Book("Treasure Islanaad"," Robert Lffffuis Stnson","anture");
 
         TableManager.getInstance(Main.class).getTemplate("Book").setWidth(20)
                 .createTitle("My BookStore")
                 .createRow(mobyDick)
-                .createRow(harryPotter)
-                .createRow(treasureIsland).initTable();
+                .createRow(treasureIsland)
+                .createRow(mobyDick).initTable();
 
+
+        TableManager.getInstance(Main.class).getTemplate("Book").setWidth(20)
+                .createRow(mobyDick)
+                .createRow(treasureIsland)
+                .createRow(mobyDick).initTable();
 
 
 

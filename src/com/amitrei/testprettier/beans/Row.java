@@ -135,7 +135,6 @@ public class Row implements Rows {
         } else {
             stringFormatSymbols = "%-";
         }
-
         String finalContent = String.format(stringFormatSymbols + whiteSpaces + "s|", rowContent);
         return finalContent;
 
@@ -146,9 +145,16 @@ public class Row implements Rows {
     private List<String> splitIntoRows(List<String> arr, int index) {
 
 
+
+
         if (arr.stream().allMatch(s -> s.length() < 2)) {
+
+            printWithoutTrimmer(arr);
             return arr;
         }
+
+
+
 
         if (index == 0) {
             // Do not print new line
@@ -160,7 +166,6 @@ public class Row implements Rows {
         index++;
         return splitIntoRows(trimmer(arr), index);
 
-
     }
 
 
@@ -171,12 +176,13 @@ public class Row implements Rows {
             int templateWidth = template[i].length() + width - 1;
 
 
+
             if (arr.get(i).length() >= templateWidth) {
                 nextRow.add(arr.get(i).substring(templateWidth));
                 row.add(arr.get(i).substring(0, templateWidth));
+
                 continue;
             }
-
 
             row.add(arr.get(i));
 
@@ -190,14 +196,11 @@ public class Row implements Rows {
 
         }
 
-
         for (int i = 0; i < template.length; i++) {
             if (i == 0) {
-
                 System.out.print(createRowText(template[i].length(), row.get(i), width, true));
                 continue;
             }
-
             System.out.print(createRowText(template[i].length(), row.get(i), width, false));
 
 
@@ -206,7 +209,30 @@ public class Row implements Rows {
     }
 
 
+
+private void printWithoutTrimmer(List<String> row) {
+
+
+    for (int i = 0; i < row.size(); i++) {
+
+        // Skip the empty new lines if there are.
+        if(row.get(i).equals(" ")) continue;
+
+
+
+        if (i == 0) {
+            System.out.print(createRowText(template[i].length(), row.get(i), width, true));
+            continue;
+        }
+        System.out.print(createRowText(template[i].length(), row.get(i), width, false));
+
+
+    }
+}
+
     protected void printRowText() {
+
+
         splitIntoRows(rowContent, 0);
     }
 

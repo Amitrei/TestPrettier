@@ -23,7 +23,7 @@ public class Title  implements TableParts {
     @Override
     public void startRender() {
 
-
+        System.out.println();
         printUpperColBorder(width, template);
         System.out.println();
         printHeaderText(width, template, titleContent);

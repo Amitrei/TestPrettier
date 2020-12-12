@@ -1,4 +1,6 @@
 package com.amitrei.testprettier.beans;
+
+import com.amitrei.testprettier.exceptions.BeanNotFoundException;
 import com.amitrei.testprettier.services.AnnotationService;
 import com.amitrei.testprettier.services.FieldService;
 import com.amitrei.testprettier.services.MethodService;
@@ -28,12 +30,11 @@ public class TableManager {
      */
 
 
-
     private TableManager(Class<?> mainClass) {
         annotationScan = new AnnotationService(mainClass);
         scanForAnnoClasses(tableTemplateAnno);
         for (Class<?> clazz : allAnnotatedClasses) {
-            Table table = new Table(clazz.getSimpleName(),clazz);
+            Table table = new Table(clazz.getSimpleName(), clazz);
             table.createHeaders(convertFromListToArray(methodScanner.scanForGetters(clazz)));
             allTables.add(table);
         }
@@ -41,22 +42,23 @@ public class TableManager {
     }
 
 
+    public Table getTemplate(String templateName, int width)  {
 
 
-
-    public Table createTable() {
-        Table table = new Table();
-        return table;
-    }
-
-    public Table getTemplate(String templateName) {
         for (Table table : allTables) {
             if (table.getTemplateName().equals(templateName)) {
+                table.setWidth(width);
                 return table;
             }
         }
-
+        try {
+            throw new BeanNotFoundException();
+        }
+        catch (BeanNotFoundException e){
+            e.printStackTrace();
+        }
         return null;
+
     }
 
     private String[] convertFromListToArray(List<String> headers) {
@@ -70,7 +72,6 @@ public class TableManager {
     private void scanForAnnoClasses(Class<? extends Annotation> annotation) {
         allAnnotatedClasses = annotationScan.scanForAnnotations(annotation);
     }
-
 
 
     public static TableManager getInstance(Class<?> mainClass) {

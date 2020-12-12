@@ -2,11 +2,12 @@ package com.amitrei.testprettier.beans;
 
 import com.amitrei.testprettier.interfaces.TableParts;
 
-public class Title  implements TableParts {
+public class Title implements TableParts {
     SimpleBox simpleBox = new SimpleBox();
 
     private String[] template;
     private int width;
+
     private String titleContent;
 
 
@@ -17,7 +18,6 @@ public class Title  implements TableParts {
 
         startRender();
     }
-
 
 
     @Override
@@ -70,8 +70,6 @@ public class Title  implements TableParts {
     }
 
 
-
-
     private void createTitleText(int templateLength, String headContent, int width, Boolean isFirst) {
         String headerCentered = centerText(headContent, templateLength + width);
         int whiteSpaces = (templateLength);
@@ -81,7 +79,7 @@ public class Title  implements TableParts {
     }
 
     private String centerText(String headerContent, int totalLength) {
-        int center = (totalLength / 2) - (headerContent.length() / 2) ;
+        int center = (totalLength / 2) - (headerContent.length() / 2);
         return String.format("%" + center + "s", headerContent);
     }
 
@@ -133,19 +131,14 @@ public class Title  implements TableParts {
     private void printHeaderText(int width, String[] template, String titleContent) {
 
 
-        int totalWidth =0;
+        int totalWidth = 0;
 
-        for(String string : template) {
-            totalWidth+=string.length() + width + 1 ;
+        for (String string : template) {
+            totalWidth += string.length() + width + 1;
         }
 
 
-
-
-                createTitleText(totalWidth-2, titleContent, width, true);
-
-
-
+        createTitleText(totalWidth - 2, titleContent, width, true);
 
 
     }
@@ -177,9 +170,9 @@ public class Title  implements TableParts {
     }
 
 
-
-
-
+    public void setTitleContent(String titleContent) {
+        this.titleContent = titleContent;
+    }
 
 
 }

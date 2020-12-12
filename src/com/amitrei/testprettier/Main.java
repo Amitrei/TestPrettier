@@ -1,6 +1,7 @@
 package com.amitrei.testprettier;
 
 import com.amitrei.testprettier.beans.TableManager;
+import com.amitrei.testprettier.exceptions.BeanNotFoundException;
 
 
 public class Main {
@@ -13,17 +14,12 @@ public class Main {
         Book mobyDick = new Book("1","1","1");
         Book treasureIsland = new Book("Treasure Islanaad"," Robert Lffffuis Stnson","anture");
 
-        TableManager.getInstance(Main.class).getTemplate("Book").setWidth(20)
+        TableManager.getInstance(Main.class).getTemplate("Book",30)
                 .createTitle("My BookStore")
                 .createRow(mobyDick)
-                .createRow(treasureIsland)
-                .createRow(mobyDick).initTable();
+                .createRow(treasureIsland).createRow(mobyDick).initTable();
 
 
-        TableManager.getInstance(Main.class).getTemplate("Book").setWidth(20)
-                .createRow(mobyDick)
-                .createRow(treasureIsland)
-                .createRow(mobyDick).initTable();
 
 
 

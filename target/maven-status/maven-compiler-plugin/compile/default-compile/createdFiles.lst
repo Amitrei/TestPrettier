@@ -1,0 +1,16 @@
+com\amitrei\testprettier\services\MethodService.class
+com\amitrei\testprettier\services\FieldService.class
+com\amitrei\testprettier\services\ClassService.class
+com\amitrei\testprettier\interfaces\Rows.class
+com\amitrei\testprettier\beans\TableManager.class
+com\amitrei\testprettier\exceptions\BeanNotFoundException.class
+com\amitrei\testprettier\exceptions\MultipleTitlesException.class
+com\amitrei\testprettier\beans\SimpleBox.class
+com\amitrei\testprettier\interfaces\TableParts.class
+com\amitrei\testprettier\beans\Header.class
+com\amitrei\testprettier\annotations\TableTemplate.class
+com\amitrei\testprettier\services\AnnotationService.class
+com\amitrei\testprettier\exceptions\NotFoundException.class
+com\amitrei\testprettier\beans\Row.class
+com\amitrei\testprettier\beans\Table.class
+com\amitrei\testprettier\beans\Title.class

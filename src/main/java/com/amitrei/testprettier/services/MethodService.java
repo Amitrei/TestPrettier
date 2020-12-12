@@ -13,10 +13,6 @@ public class MethodService {
     public MethodService() {
     }
 
-    /**
-     * @return - list of all getters names that found matched
-     * @Method - scanning for getters at class and checking if getters matching the fields
-     */
 
 
     public List<String> scanForGetters(Class<?> clazz) {

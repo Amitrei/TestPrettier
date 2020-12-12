@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.amitrei.testprettier.annotations"},{"l":"com.amitrei.testprettier.beans"},{"l":"com.amitrei.testprettier.exceptions"},{"l":"com.amitrei.testprettier.interfaces"},{"l":"com.amitrei.testprettier.services"}]

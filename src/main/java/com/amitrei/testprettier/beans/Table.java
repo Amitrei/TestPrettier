@@ -73,9 +73,7 @@ public class Table {
 
     }
 
-    /**
-     * @Method - Creating a row by reflecting getters from an object
-     */
+
 
     public Table createRow(Object object) {
         if (!object.getClass().equals(headerClass)) throw new IllegalArgumentException("Not the same class");

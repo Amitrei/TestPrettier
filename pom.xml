@@ -109,7 +109,7 @@
                 <configuration>
 
                     <keyname>5777850C</keyname>
-                    <passphrase>1A2b3c4damit</passphrase>
+                    <passphrase>passPharse</passphrase>
                 </configuration>
                 <executions>
                     <execution>

@@ -59,7 +59,7 @@ public class Dog {
                 .createRow(d3)
                 .initTable();
 ```
-   ***Make sure to include inside the "getInstance()" parenthesis your current class, in the example above as you can see the we are at the Main class***
+   ***Make sure to include inside the "getInstance()" parenthesis your current class, in the example above as you can see we are initiating the table inside the Main class***
 ```
 TableManager.getInstance(Main.class)
 ```

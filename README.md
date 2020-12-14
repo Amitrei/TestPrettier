@@ -65,11 +65,11 @@ TableManager.getInstance(Main.class)
 ```
 ***
 
-4. Getting the template for the annotated class for that you need to include inside the "getTemplate" parenthesis the annotated class name.
+4. Getting the template for the annotated class , for that you need to include inside the "getTemplate" parenthesis the annotated class name and on the second argument enter the table width you desire.
 ```
 TableManager.getInstance(Main.class).getTemplate("Dog",30)
 ```
-As you can see in the exmaple we are using the Dog class we annotated with "@TableTemplate".
+As you can see in the exmaple we are using the Dog class we annotated with "@TableTemplate" and we set the width of the table to 30.
 
 5. Populate the table with your objects, you do that by calling the "createRow" method and include the object inside the parenthesis. You can have as much rows as you want
 ```

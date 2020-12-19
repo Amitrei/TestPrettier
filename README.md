@@ -11,7 +11,7 @@
 
 ## How to use
 1.First include the TestPrettier in your project by visiting <a href="https://search.maven.org/artifact/com.github.amitrei/testPrettier/1.0.3/jar">this link</a>. <br/>
-For example if your using Maven you should include the dependency like so:
+For example if your using Maven you should include the dependency in the pom.xml file like so:
 ```
 <dependency>
   <groupId>com.github.amitrei</groupId>
